@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-FeaturedMovie.PropTypes = {
+FeaturedMovie.propTypes = {
     slug: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,

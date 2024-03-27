@@ -17,13 +17,13 @@ export default function Dashboard() {
     };
     return (
         <>
-            <Head title="Dashboard">
-                <link
-                    rel="stylesheet"
-                    href="https://unpkg.com/flickity@2/dist/flickity.min.css"
-                />
-            </Head>
             <Authenticated>
+                <Head title="Dashboard">
+                    <link
+                        rel="stylesheet"
+                        href="https://unpkg.com/flickity@2/dist/flickity.min.css"
+                    />
+                </Head>
                 <div>
                     <div className="font-semibold text-[22px] text-black mb-4">
                         Featured Movies
