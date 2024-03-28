@@ -1,23 +1,64 @@
-import { forwardRef, useEffect, useRef } from 'react';
+import { forwardRef, useEffect, useRef } from "react";
+import PropTypes from "prop-types";
 
-export default forwardRef(function TextInput({ type = 'text', className = '', isFocused = false, ...props }, ref) {
-    const input = ref ? ref : useRef();
+const TextInput = forwardRef(function TextInput(
+    {
+        type = "text",
+        name,
+        value,
+        defaultValue,
+        className = "",
+        variant = "primary",
+        autoComplete,
+        required,
+        // handleChange,
+        placeholder,
+        isFocused = false,
+        isError,
+        ...props
+    },
+    ref
+) {
+    const inputRef = ref || useRef(null);
 
     useEffect(() => {
-        if (isFocused) {
-            input.current.focus();
+        if (isFocused && inputRef.current) {
+            inputRef.current.focus();
         }
-    }, []);
+    }, [isFocused]);
 
     return (
         <input
             {...props}
             type={type}
-            className={
-                'border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm ' +
-                className
-            }
-            ref={input}
+            name={name}
+            value={value}
+            defaultValue={defaultValue}
+            className={`rounded-2xl bg-form-bg py-[13px] px-7 w-full ${
+                isError ? "input-error" : ""
+            } input-${variant} ${className}`}
+            ref={inputRef}
+            autoComplete={autoComplete}
+            required={required}
+            // onChange={(e) => handleChange(e)}
+            placeholder={placeholder}
         />
     );
 });
+
+TextInput.propTypes = {
+    type: PropTypes.oneOf(["text", "email", "password", "number", "file"]),
+    name: PropTypes.string,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    className: PropTypes.string,
+    variant: PropTypes.oneOf(["primary", "error", "primary-outline"]),
+    autoComplete: PropTypes.string,
+    required: PropTypes.bool,
+    isFocused: PropTypes.bool,
+    // handleChange: PropTypes.func,
+    placeholder: PropTypes.string,
+    isError: PropTypes.bool,
+};
+
+export default TextInput;
